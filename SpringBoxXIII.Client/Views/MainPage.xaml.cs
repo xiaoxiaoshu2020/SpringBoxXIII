@@ -21,5 +21,12 @@ namespace SpringBoxXIII.Client.Views
                 }
             });
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            // 取消注册消息接收器
+            WeakReferenceMessenger.Default.Unregister<StartAnimationMessage>(this);
+        }
     }
 }
