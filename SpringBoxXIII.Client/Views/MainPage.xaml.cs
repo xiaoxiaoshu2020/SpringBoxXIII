@@ -1,14 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using SpringBoxXIII.Client.ViewModels;
 using SpringBoxXIII.Client.Models.Messages;
+using SpringBoxXIII.Client.ViewModels;
 
 namespace SpringBoxXIII.Client.Views
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        public MainPage(MainViewModel viewModel)
         {
             InitializeComponent();
+            BindingContext = viewModel;
             WeakReferenceMessenger.Default.Register<StartAnimationMessage>(this, (r, m) =>
             {
                 if (m.TargetElementName == "Img")
@@ -19,6 +20,10 @@ namespace SpringBoxXIII.Client.Views
                         await Img.ScaleTo(1.0, 200);
                     });
                 }
+            });
+            WeakReferenceMessenger.Default.Register<TestServerMessage>(this, async (r, m) =>
+            {
+                await Shell.Current.DisplayAlert("服务器返回", m.Message ?? "无内容", "确认");
             });
         }
 

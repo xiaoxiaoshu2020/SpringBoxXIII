@@ -1,20 +1,17 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using SpringBoxXIII.Client.Models.Messages;
-using System;
-using System.Collections.Generic;
+using SpringBoxXIII.Client.Services;
 using System.ComponentModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    internal partial class MainViewModel : INotifyPropertyChanged
+    public partial class MainViewModel : INotifyPropertyChanged
     {
+        private readonly IApiService _apiService;
+
         private int _count;
         public int Count
         {
@@ -31,6 +28,7 @@ namespace SpringBoxXIII.Client.ViewModels
             }
         }
         public ICommand IncrementCommand { get; }
+        public ICommand TestServerCommand { get; }
         private void IncrementCount()
         {
             WeakReferenceMessenger.Default.Send(new StartAnimationMessage
@@ -39,9 +37,20 @@ namespace SpringBoxXIII.Client.ViewModels
             });
             Count++;
         }
-        public MainViewModel()
+        private async void TestServer()
         {
+            string json = await _apiService.GetAsync("/Hello");
+            Trace.WriteLine(json);
+            WeakReferenceMessenger.Default.Send(new TestServerMessage
+            {
+                Message = json
+            });
+        }
+        public MainViewModel(IApiService apiService)
+        {
+            _apiService = apiService;
             IncrementCommand = new Command(IncrementCount);
+            TestServerCommand = new Command(TestServer);
         }
 
         public string CountText => "祝刘春冶和吴宇轩百年好合\n" + $"祝贺次数: {Count}";

@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewmodels="clr-namespace:SpringBoxXIII.Client.ViewModels"
              x:Class="SpringBoxXIII.Client.Views.MainPage">
 
-    <ContentPage.BindingContext>
-        <viewmodels:MainViewModel />
-    </ContentPage.BindingContext>
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            
+
             <Image
                 x:Name="Img"
                 Source="xi.png"
@@ -31,10 +27,13 @@
                 SemanticProperties.HeadingLevel="Level2" />
 
             <Button
-                x:Name="CounterBtn"
                 Text="{Binding ButtonText}" 
                 SemanticProperties.Hint="你点击按钮的次数"
                 Command="{Binding IncrementCommand}"
+                HorizontalOptions="Fill" />
+            <Button 
+                Text="测试服务器连接"
+                Command="{Binding TestServerCommand}"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
