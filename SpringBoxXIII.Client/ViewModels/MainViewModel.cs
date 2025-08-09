@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using SpringBoxXIII.Client.Models.Messages;
 using SpringBoxXIII.Client.Services;
+using SpringBoxXIII.Shared.Models;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -28,7 +29,8 @@ namespace SpringBoxXIII.Client.ViewModels
             }
         }
         public ICommand IncrementCommand { get; }
-        public ICommand TestServerCommand { get; }
+        public ICommand GetDataCommand { get; }
+        public ICommand PostDataCommand { get; }
         private void IncrementCount()
         {
             WeakReferenceMessenger.Default.Send(new StartAnimationMessage
@@ -37,10 +39,17 @@ namespace SpringBoxXIII.Client.ViewModels
             });
             Count++;
         }
-        private async void TestServer()
+        private async void GetData()
         {
-            string json = await _apiService.GetAsync("/Hello");
-            Trace.WriteLine(json);
+            string json = await _apiService.GetAsync("/api/Hello");
+            WeakReferenceMessenger.Default.Send(new TestServerMessage
+            {
+                Message = json
+            });
+        }
+        private async void PostData()
+        {
+            string json = await _apiService.PostAsync("/api/Hello",new User { Id = 1, Name="Vivactil"});
             WeakReferenceMessenger.Default.Send(new TestServerMessage
             {
                 Message = json
@@ -50,7 +59,8 @@ namespace SpringBoxXIII.Client.ViewModels
         {
             _apiService = apiService;
             IncrementCommand = new Command(IncrementCount);
-            TestServerCommand = new Command(TestServer);
+            GetDataCommand = new Command(GetData);
+            PostDataCommand = new Command(PostData);
         }
 
         public string CountText => "祝刘春冶和吴宇轩百年好合\n" + $"祝贺次数: {Count}";

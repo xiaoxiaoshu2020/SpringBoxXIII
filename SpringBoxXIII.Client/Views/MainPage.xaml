@@ -33,7 +33,11 @@
                 HorizontalOptions="Fill" />
             <Button 
                 Text="测试服务器连接"
-                Command="{Binding TestServerCommand}"
+                Command="{Binding GetDataCommand}"
+                HorizontalOptions="Fill" />
+            <Button 
+                Text="向服务器发送数据"
+                Command="{Binding PostDataCommand}"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
