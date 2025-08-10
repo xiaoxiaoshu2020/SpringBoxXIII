@@ -22,9 +22,13 @@ namespace SpringBoxXIII.Client
 
             builder.Services.AddHttpClient<IApiService, ApiService>((provider, client) =>
             {
-                client.BaseAddress = new Uri("http://localhost:5106/"); // 基础地址
+#if DEBUG
+                client.BaseAddress = new Uri("http://192.168.3.59:5000/"); // 基础地址
+#else
+                client.BaseAddress = new Uri("http://111.6.42.124:35850/"); // 生产环境基础地址
+#endif
                 client.DefaultRequestHeaders.Add("Accept", "application/json"); // 默认请求头
-                client.Timeout = TimeSpan.FromSeconds(15);
+                client.Timeout = TimeSpan.FromSeconds(10);
             });
 
 #if DEBUG

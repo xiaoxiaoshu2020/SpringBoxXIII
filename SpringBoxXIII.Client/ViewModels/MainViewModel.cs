@@ -31,6 +31,7 @@ namespace SpringBoxXIII.Client.ViewModels
         public ICommand IncrementCommand { get; }
         public ICommand GetDataCommand { get; }
         public ICommand PostDataCommand { get; }
+        public ICommand NavigateToSettingsCommand { get; }
         private void IncrementCount()
         {
             WeakReferenceMessenger.Default.Send(new StartAnimationMessage
@@ -55,12 +56,17 @@ namespace SpringBoxXIII.Client.ViewModels
                 Message = json
             });
         }
+        private async void NavigateToSettings()
+        {
+            await Shell.Current.GoToAsync("//SettingsPage");
+        }
         public MainViewModel(IApiService apiService)
         {
             _apiService = apiService;
             IncrementCommand = new Command(IncrementCount);
             GetDataCommand = new Command(GetData);
             PostDataCommand = new Command(PostData);
+            NavigateToSettingsCommand = new Command(NavigateToSettings);
         }
 
         public string CountText => "祝刘春冶和吴宇轩百年好合\n" + $"祝贺次数: {Count}";
