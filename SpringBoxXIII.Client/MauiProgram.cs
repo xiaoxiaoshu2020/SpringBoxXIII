@@ -20,7 +20,7 @@ namespace SpringBoxXIII.Client
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
 
-            builder.Services.AddHttpClient<IApiService, ApiService>((provider, client) =>
+            builder.Services.AddHttpClient("api", (provider, client) =>
             {
 #if DEBUG
                 client.BaseAddress = new Uri("http://192.168.3.59:5000/"); // 基础地址
@@ -30,6 +30,7 @@ namespace SpringBoxXIII.Client
                 client.DefaultRequestHeaders.Add("Accept", "application/json"); // 默认请求头
                 client.Timeout = TimeSpan.FromSeconds(10);
             });
+            builder.Services.AddTransient<IApiService,ApiService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

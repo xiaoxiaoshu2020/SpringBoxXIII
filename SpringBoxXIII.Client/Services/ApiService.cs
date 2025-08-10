@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace SpringBoxXIII.Client.Services
 {
-    internal class ApiService(HttpClient httpClient) : IApiService
+    internal class ApiService(IHttpClientFactory httpClientFactory) : IApiService
     {
-        private readonly HttpClient _httpClient = httpClient;
+        private readonly IHttpClientFactory _httpClientFactory = httpClientFactory;
 
         public async Task<string> GetAsync(string endpoint)
         {
             try
             {
-                using var response = await _httpClient.GetAsync(endpoint);
+                var client = _httpClientFactory.CreateClient("api");
+                using var response = await client.GetAsync(endpoint);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -36,7 +37,8 @@ namespace SpringBoxXIII.Client.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync(endpoint, data);
+                var client = _httpClientFactory.CreateClient("api");
+                var response = await client.PostAsJsonAsync(endpoint, data);
                 if (!response.IsSuccessStatusCode)
                 {
                     var errorContent = await response.Content.ReadAsStringAsync();
