@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using SpringBoxXIII.Client.Models.Messages;
 using SpringBoxXIII.Client.Services;
 using SpringBoxXIII.Shared.Models;
@@ -28,11 +29,9 @@ namespace SpringBoxXIII.Client.ViewModels
                 }
             }
         }
-        public ICommand IncrementCommand { get; }
-        public ICommand GetDataCommand { get; }
-        public ICommand PostDataCommand { get; }
-        public ICommand NavigateToSettingsCommand { get; }
-        private void IncrementCount()
+
+        [RelayCommand()]
+        private void IncreaseCount()
         {
             WeakReferenceMessenger.Default.Send(new StartAnimationMessage
             {
@@ -40,7 +39,8 @@ namespace SpringBoxXIII.Client.ViewModels
             });
             Count++;
         }
-        private async void GetData()
+        [RelayCommand]
+        private async Task GetData()
         {
             string json = await _apiService.GetAsync("/api/Hello");
             WeakReferenceMessenger.Default.Send(new TestServerMessage
@@ -48,7 +48,8 @@ namespace SpringBoxXIII.Client.ViewModels
                 Message = json
             });
         }
-        private async void PostData()
+        [RelayCommand]
+        private async Task PostData()
         {
             string json = await _apiService.PostAsync("/api/Hello",new User { Id = 1, Name="Vivactil"});
             WeakReferenceMessenger.Default.Send(new TestServerMessage
@@ -56,17 +57,14 @@ namespace SpringBoxXIII.Client.ViewModels
                 Message = json
             });
         }
-        private async void NavigateToSettings()
+        [RelayCommand]
+        private async Task NavigateToSettings()
         {
             await Shell.Current.GoToAsync("//SettingsPage");
         }
         public MainViewModel(IApiService apiService)
         {
             _apiService = apiService;
-            IncrementCommand = new Command(IncrementCount);
-            GetDataCommand = new Command(GetData);
-            PostDataCommand = new Command(PostData);
-            NavigateToSettingsCommand = new Command(NavigateToSettings);
         }
 
         public string CountText => "祝刘春冶和吴宇轩百年好合\n" + $"祝贺次数: {Count}";

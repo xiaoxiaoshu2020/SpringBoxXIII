@@ -30,7 +30,7 @@
             <Button
                 Text="{Binding ButtonText}" 
                 SemanticProperties.Hint="你点击按钮的次数"
-                Command="{Binding IncrementCommand}"
+                Command="{Binding IncreaseCountCommand}"
                 HorizontalOptions="Fill" />
             <Button 
                 Text="测试服务器连接"
