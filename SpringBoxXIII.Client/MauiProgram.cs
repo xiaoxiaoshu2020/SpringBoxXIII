@@ -19,6 +19,9 @@ namespace SpringBoxXIII.Client
                 });
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<SettingsViewModel>();
+            builder.Services.AddTransient<SettingsPage>();
+            
 
             builder.Services.AddHttpClient("api", (provider, client) =>
             {
