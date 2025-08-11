@@ -30,7 +30,7 @@ namespace SpringBoxXIII.Client.ViewModels
             }
         }
 
-        [RelayCommand()]
+        [RelayCommand]
         private void IncreaseCount()
         {
             WeakReferenceMessenger.Default.Send(new StartAnimationMessage
