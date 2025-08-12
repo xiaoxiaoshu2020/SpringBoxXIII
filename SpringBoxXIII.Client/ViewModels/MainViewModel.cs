@@ -10,9 +10,9 @@ using System.Windows.Input;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    public partial class MainViewModel(IApiService apiService) : INotifyPropertyChanged
+    public partial class MainViewModel : INotifyPropertyChanged
     {
-        private readonly IApiService _apiService = apiService;
+        private readonly IApiService _apiService;
 
         private int _count;
         public int Count
@@ -28,6 +28,31 @@ namespace SpringBoxXIII.Client.ViewModels
                     OnPropertyChanged(nameof(ButtonText));
                 }
             }
+        }
+
+        private IDispatcherTimer? _timer;
+
+        public MainViewModel(IApiService apiService)
+        {
+            _apiService = apiService;
+            InitializeTimer();
+        }
+
+        private void InitializeTimer()
+        {
+            if (Application.Current?.Dispatcher == null)
+            {
+                throw new InvalidOperationException("Application.Current 或 Dispatcher 为空，无法初始化定时器。");
+            }
+            _timer = Application.Current.Dispatcher.CreateTimer();
+            _timer.Interval = TimeSpan.FromSeconds(5);
+            _timer.Tick += async (s, e) => await PostDataAsync();
+            _timer.Start();
+        }
+
+        async Task PostDataAsync()
+        { 
+            await _apiService.PostAsync("/api/Hello", new User { Id = 1, Name = Count.ToString() });
         }
 
         [RelayCommand]
@@ -48,6 +73,7 @@ namespace SpringBoxXIII.Client.ViewModels
                 Message = json
             });
         }
+
         [RelayCommand]
         private async Task PostData()
         {
