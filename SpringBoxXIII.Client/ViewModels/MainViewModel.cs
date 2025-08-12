@@ -10,9 +10,9 @@ using System.Windows.Input;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    public partial class MainViewModel : INotifyPropertyChanged
+    public partial class MainViewModel(IApiService apiService) : INotifyPropertyChanged
     {
-        private readonly IApiService _apiService;
+        private readonly IApiService _apiService = apiService;
 
         private int _count;
         public int Count
@@ -61,10 +61,6 @@ namespace SpringBoxXIII.Client.ViewModels
         private async Task NavigateToSettings()
         {
             await Shell.Current.GoToAsync("//SettingsPage");
-        }
-        public MainViewModel(IApiService apiService)
-        {
-            _apiService = apiService;
         }
 
         public string CountText => "祝刘春冶和吴宇轩百年好合\n" + $"祝贺次数: {Count}";
