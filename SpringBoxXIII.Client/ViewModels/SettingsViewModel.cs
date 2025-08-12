@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    public partial class SettingsViewModel(IApiService apiService) : INotifyPropertyChanged
+    public partial class SettingsViewModel(IApiConfigService apiConfigService) : INotifyPropertyChanged
     {
-        private readonly IApiService _apiService = apiService;
+        private readonly IApiConfigService _apiConfigService = apiConfigService;
 
         private string? _apiBaseAddress;
         public string ApiBaseAddress
@@ -33,7 +33,7 @@ namespace SpringBoxXIII.Client.ViewModels
         {
             if (_apiBaseAddress is not null)
             {
-                _apiService.SetBaseAddress(_apiBaseAddress);
+                _apiConfigService.BaseAddress = _apiBaseAddress;
             }
 
         }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpringBoxXIII.Client.Services
 {
-    public interface IApiService
+    public interface IApiConfigService
     {
-        public Task<string> GetAsync(string endpoint);
-        public Task<string> PostAsync<TRequest>(string endpoint, TRequest data);
+        string DefaultBaseAddress { get; }
+        string BaseAddress { get; set; }
     }
 }
