@@ -25,11 +25,12 @@ namespace SpringBoxXIII.Client
             builder.Services.AddTransient<SettingsViewModel>();
             builder.Services.AddTransient<SettingsPage>();
 
-            // MauiProgram.cs
-            builder.Services.AddHttpClient("api", client =>
+            builder.Services.AddSingleton(Preferences.Default);
+            builder.Services.AddSingleton<IApiConfigService,ApiConfigService>();
+            builder.Services.AddHttpClient("api", (sp,client) =>
             {
-                var baseAddress = Preferences.Default.Get("api_base_address", "https://localhost:5106/");
-                client.BaseAddress = new Uri(baseAddress);
+                var config = sp.GetRequiredService<IApiConfigService>();
+                client.BaseAddress = new Uri(config.BaseAddress);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.Timeout = TimeSpan.FromSeconds(15);
             });

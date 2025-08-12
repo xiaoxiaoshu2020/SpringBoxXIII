@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    public partial class SettingsViewModel(IApiService apiService) : INotifyPropertyChanged
+    public partial class SettingsViewModel(IApiConfigService apiConfigService) : INotifyPropertyChanged
     {
-        private readonly IApiService _apiService = apiService;
+        private readonly IApiConfigService _apiConfigService = apiConfigService;
 
         private string? _apiBaseAddress;
-        public string ApiBaseAddress
+        public string? ApiBaseAddress
         {
-            get => _apiBaseAddress ?? "https://localhost:5106/";
+            get => _apiBaseAddress;
             set
             {
-                if (_apiBaseAddress != value)
+                if (_apiBaseAddress != value && value != null)
                 {
                     _apiBaseAddress = value;
                     OnPropertyChanged();
@@ -33,7 +33,7 @@ namespace SpringBoxXIII.Client.ViewModels
         {
             if (_apiBaseAddress is not null)
             {
-                _apiService.SetBaseAddress(_apiBaseAddress);
+                _apiConfigService.BaseAddress = _apiBaseAddress;
             }
 
         }
