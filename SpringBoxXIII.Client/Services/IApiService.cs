@@ -10,5 +10,6 @@ namespace SpringBoxXIII.Client.Services
     {
         public Task<string> GetAsync(string endpoint);
         public Task<string> PostAsync<TRequest>(string endpoint, TRequest data);
+        public Task SetBaseAddress(string baseAddress);
     }
 }

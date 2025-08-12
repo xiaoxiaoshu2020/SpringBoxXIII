@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SpringBoxXIII.Client.Models;
 using SpringBoxXIII.Client.Services;
 using SpringBoxXIII.Client.ViewModels;
 using SpringBoxXIII.Client.Views;
+using System.Diagnostics;
 
 namespace SpringBoxXIII.Client
 {
@@ -21,19 +24,16 @@ namespace SpringBoxXIII.Client
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<SettingsViewModel>();
             builder.Services.AddTransient<SettingsPage>();
-            
 
-            builder.Services.AddHttpClient("api", (provider, client) =>
+            // MauiProgram.cs
+            builder.Services.AddHttpClient("api", client =>
             {
-#if DEBUG
-                client.BaseAddress = new Uri("http://192.168.3.59:5000/"); // 基础地址
-#else
-                client.BaseAddress = new Uri("http://111.6.42.124:35850/"); // 生产环境基础地址
-#endif
-                client.DefaultRequestHeaders.Add("Accept", "application/json"); // 默认请求头
-                client.Timeout = TimeSpan.FromSeconds(10);
+                var baseAddress = Preferences.Default.Get("api_base_address", "https://localhost:5106/");
+                client.BaseAddress = new Uri(baseAddress);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.Timeout = TimeSpan.FromSeconds(15);
             });
-            builder.Services.AddTransient<IApiService,ApiService>();
+            builder.Services.AddTransient<IApiService, ApiService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -52,8 +52,14 @@ namespace SpringBoxXIII.Client.Services
             }
             catch (Exception ex)
             {
-                 return $"Error: {ex.Message}";
+                return $"Error: {ex.Message}";
             }
+        }
+
+        public Task SetBaseAddress(string baseAddress)
+        {
+            Preferences.Default.Set("api_base_address", baseAddress);
+            return Task.CompletedTask;
         }
     }
 }

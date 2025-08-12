@@ -6,6 +6,13 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            <Entry 
+                Text="{Binding ApiBaseAddress}"
+                HorizontalOptions="Fill" />
+            <Button 
+                Text="更改服务器地址"
+                Command="{Binding SetBaseAddressCommand}"
+                HorizontalOptions="Fill" />
             <Button 
                 Text="返回主页"
                 Command="{Binding NavigateToMainPageCommand}"
