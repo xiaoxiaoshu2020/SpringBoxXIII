@@ -9,8 +9,9 @@ namespace SpringBoxXIII.Shared.Models
 {
     public class User
     {
-        public uint Id { get; set; }
+        public uint UserId { get; set; }
         [StringLength(10)]
-        public string Name { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
+        public int Count { get; set; }
     }
 }

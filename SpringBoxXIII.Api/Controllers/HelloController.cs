@@ -50,8 +50,8 @@ namespace SpringBoxXIII.Api.Controllers
         [HttpPost]
         public ActionResult Post(User user)
         {
-            Console.WriteLine($"Id:{user.Id}Name:{user.Name}");
-            return Ok($"服务器接收到数据！数据:Id:{user.Id}Name:{user.Name}");
+            Console.WriteLine($"Id:{user.UserId}Name:{user.UserName}");
+            return Ok($"服务器接收到数据！数据:Id:{user.UserId}Name:{user.UserName}");
         }
     }
 }
