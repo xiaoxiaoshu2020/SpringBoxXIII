@@ -64,25 +64,7 @@ namespace SpringBoxXIII.Client.ViewModels
             });
             Count++;
         }
-        [RelayCommand]
-        private async Task GetData()
-        {
-            string json = await _apiService.GetAsync("/api/Hello");
-            WeakReferenceMessenger.Default.Send(new TestServerMessage
-            {
-                Message = json
-            });
-        }
 
-        [RelayCommand]
-        private async Task PostData()
-        {
-            string json = await _apiService.PostAsync("/api/Hello", new User { UserId = 1, UserName = "Vivactil" });
-            WeakReferenceMessenger.Default.Send(new TestServerMessage
-            {
-                Message = json
-            });
-        }
         [RelayCommand]
         private async Task NavigateToSettings()
         {
