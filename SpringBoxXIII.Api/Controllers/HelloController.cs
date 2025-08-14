@@ -50,8 +50,19 @@ namespace SpringBoxXIII.Api.Controllers
         [HttpPost]
         public ActionResult Post(User user)
         {
-            Console.WriteLine($"Id:{user.UserId}Name:{user.UserName}");
-            return Ok($"服务器接收到数据！数据:Id:{user.UserId}Name:{user.UserName}");
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"UPDATE Users SET Count = Count + @Count WHERE UserName = @UserName";
+
+                using (var command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@Count", user.Count);
+                    command.Parameters.AddWithValue("@UserName", user.UserName);
+                    command.ExecuteNonQuery();
+                }
+                return Ok();
+            }
         }
     }
 }

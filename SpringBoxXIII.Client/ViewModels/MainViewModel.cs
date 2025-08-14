@@ -51,8 +51,8 @@ namespace SpringBoxXIII.Client.ViewModels
         }
 
         async Task PostDataAsync()
-        { 
-            await _apiService.PostAsync("/api/Hello", new User { UserId = 1, UserName = Count.ToString() });
+        {
+            await _apiService.PostAsync("/api/Hello", new User { UserId = 1, UserName = "张伟", Count = _count });
         }
 
         [RelayCommand]
@@ -77,7 +77,7 @@ namespace SpringBoxXIII.Client.ViewModels
         [RelayCommand]
         private async Task PostData()
         {
-            string json = await _apiService.PostAsync("/api/Hello",new User { UserId = 1, UserName="Vivactil"});
+            string json = await _apiService.PostAsync("/api/Hello", new User { UserId = 1, UserName = "Vivactil" });
             WeakReferenceMessenger.Default.Send(new TestServerMessage
             {
                 Message = json
