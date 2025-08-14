@@ -40,10 +40,11 @@
         <Button 
             AbsoluteLayout.LayoutFlags="PositionProportional"
             AbsoluteLayout.LayoutBounds="1,1"
-            CornerRadius="40"
+            CornerRadius="30"
             Command="{Binding NavigateToSettingsCommand}"
             WidthRequest="60"
             HeightRequest="60"
+            Padding="0"
             FontSize="24">
             <Button.ImageSource>
                 <FontImageSource

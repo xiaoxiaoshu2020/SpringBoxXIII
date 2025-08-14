@@ -17,7 +17,9 @@ namespace SpringBoxXIII.Client.Views
                     Dispatcher.Dispatch(async () =>
                     {
                         await Img.ScaleTo(1.2, 200);
+                        await Img.RotateTo(360, 200);
                         await Img.ScaleTo(1.0, 200);
+                        await Img.RotateTo(0, 0);
                     });
                 }
             });
