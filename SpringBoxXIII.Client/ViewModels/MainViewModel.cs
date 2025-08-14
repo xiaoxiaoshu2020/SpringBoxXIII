@@ -52,7 +52,7 @@ namespace SpringBoxXIII.Client.ViewModels
 
         async Task PostDataAsync()
         {
-            await _apiService.PostAsync("/api/Hello", new User { UserId = 1, UserName = "张伟", Count = _count });
+            await _apiService.PostAsync("/api/Hello", new User {UserName = "Vivactil", DeltaCount = _count });
         }
 
         [RelayCommand]

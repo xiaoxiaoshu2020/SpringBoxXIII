@@ -44,24 +44,31 @@ namespace SpringBoxXIII.Api.Controllers
             }
             catch (SqlException ex)
             {
-                return BadRequest(new { Message = ex.Message, Status = "BadRequest" });
+                return BadRequest(new { ex.Message, Status = "BadRequest" });
             }
         }
         [HttpPost]
         public ActionResult Post(User user)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-                string sql = @"UPDATE Users SET Count = Count + @Count WHERE UserName = @UserName";
-
-                using (var command = new SqlCommand(sql, connection))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("@Count", user.Count);
-                    command.Parameters.AddWithValue("@UserName", user.UserName);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string sql = @"UPDATE Users SET Count = Count + @DeltaCount WHERE UserName = @UserName";
+
+                    using (var command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@DeltaCount", user.DeltaCount);
+                        command.Parameters.AddWithValue("@UserName", user.UserName);
+                        command.ExecuteNonQuery();
+                    }
+                    return Ok();
                 }
-                return Ok();
+            }
+            catch (SqlException ex)
+            {
+                return BadRequest(new { ex.Message, Status = "BadRequest" });
             }
         }
     }

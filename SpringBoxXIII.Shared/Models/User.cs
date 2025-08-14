@@ -12,6 +12,6 @@ namespace SpringBoxXIII.Shared.Models
         public uint UserId { get; set; }
         [StringLength(10)]
         public string UserName { get; set; } = string.Empty;
-        public int Count { get; set; }
+        public int DeltaCount { get; set; }
     }
 }
