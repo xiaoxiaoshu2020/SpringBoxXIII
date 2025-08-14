@@ -14,6 +14,8 @@ namespace SpringBoxXIII.Client.ViewModels
     {
         private readonly IApiService _apiService;
 
+        private int _deltaCount;
+
         private int _count;
         public int Count
         {
@@ -52,7 +54,8 @@ namespace SpringBoxXIII.Client.ViewModels
 
         async Task PostDataAsync()
         {
-            await _apiService.PostAsync("/api/Hello", new User {UserName = "Vivactil", DeltaCount = _count });
+            await _apiService.PostAsync("/api/Hello", new User {UserName = "Vivactil", DeltaCount = _deltaCount });
+            _deltaCount = 0; // Reset count after posting
         }
 
         [RelayCommand]
@@ -62,6 +65,7 @@ namespace SpringBoxXIII.Client.ViewModels
             {
                 TargetElementName = "Img"
             });
+            _deltaCount++;
             Count++;
         }
 
