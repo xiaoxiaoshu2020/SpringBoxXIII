@@ -21,6 +21,8 @@ namespace SpringBoxXIII.Client
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<SettingsViewModel>();
             builder.Services.AddTransient<SettingsPage>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<LoginPage>();
 
             builder.Services.AddSingleton(Preferences.Default);
             builder.Services.AddSingleton<IApiConfigService,ApiConfigService>();

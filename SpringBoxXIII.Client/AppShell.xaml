@@ -15,5 +15,9 @@
         Title="设置"
         ContentTemplate="{DataTemplate local:SettingsPage}"
         Route="SettingsPage"/>
+    <ShellContent
+        Title="登录"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage"/>
 
 </Shell>

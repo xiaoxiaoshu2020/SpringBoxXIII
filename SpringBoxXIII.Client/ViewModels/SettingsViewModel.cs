@@ -37,6 +37,11 @@ namespace SpringBoxXIII.Client.ViewModels
             }
 
         }
+        [RelayCommand]
+        private void NavigateToLoginPage()
+        {
+            Shell.Current.GoToAsync("//LoginPage");
+        }
 
         [RelayCommand]
         private void NavigateToMainPage()

@@ -4,9 +4,7 @@ using SpringBoxXIII.Client.DataModels.Messages;
 using SpringBoxXIII.Client.Services;
 using SpringBoxXIII.Shared.DataModels;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace SpringBoxXIII.Client.ViewModels
 {

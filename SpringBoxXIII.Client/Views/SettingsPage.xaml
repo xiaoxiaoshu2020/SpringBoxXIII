@@ -14,6 +14,10 @@
                 Command="{Binding SetBaseAddressCommand}"
                 HorizontalOptions="Fill" />
             <Button 
+                Text="前往登录页面"
+                Command="{Binding NavigateToLoginPageCommand}"
+                HorizontalOptions="Fill" />
+            <Button 
                 Text="返回主页"
                 Command="{Binding NavigateToMainPageCommand}"
                 HorizontalOptions="Fill" />
