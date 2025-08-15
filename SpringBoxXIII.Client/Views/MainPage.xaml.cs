@@ -10,6 +10,11 @@ namespace SpringBoxXIII.Client.Views
         {
             InitializeComponent();
             BindingContext = viewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             WeakReferenceMessenger.Default.Register<StartAnimationMessage>(this, (r, m) =>
             {
                 if (m.TargetElementName == "Img")
@@ -34,6 +39,7 @@ namespace SpringBoxXIII.Client.Views
             base.OnDisappearing();
             // 取消注册消息接收器
             WeakReferenceMessenger.Default.Unregister<StartAnimationMessage>(this);
+            WeakReferenceMessenger.Default.Unregister<TestServerMessage>(this);
         }
     }
 }
