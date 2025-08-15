@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpringBoxXIII.Shared.Models
+namespace SpringBoxXIII.Shared.DataModels
 {
     public class User
     {

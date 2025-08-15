@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpringBoxXIII.Client.Models.Messages
+namespace SpringBoxXIII.Client.DataModels.Messages
 {
     internal class StartAnimationMessage
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data;
 using Microsoft.Data.SqlClient;
-using SpringBoxXIII.Shared.Models;
+using SpringBoxXIII.Shared.DataModels;
 using System.Reflection.Metadata.Ecma335;
 
 namespace SpringBoxXIII.Api.Controllers

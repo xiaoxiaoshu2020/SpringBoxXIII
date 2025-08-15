@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using SpringBoxXIII.Client.Models;
 using SpringBoxXIII.Client.Services;
 using SpringBoxXIII.Client.ViewModels;
 using SpringBoxXIII.Client.Views;
-using System.Diagnostics;
 
 namespace SpringBoxXIII.Client
 {

@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
-using SpringBoxXIII.Client.Models.Messages;
+using SpringBoxXIII.Client.DataModels.Messages;
 using SpringBoxXIII.Client.ViewModels;
 
 namespace SpringBoxXIII.Client.Views

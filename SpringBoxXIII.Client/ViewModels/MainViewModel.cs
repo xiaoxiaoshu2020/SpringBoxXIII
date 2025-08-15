@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using SpringBoxXIII.Client.Models.Messages;
+using SpringBoxXIII.Client.DataModels.Messages;
 using SpringBoxXIII.Client.Services;
-using SpringBoxXIII.Shared.Models;
+using SpringBoxXIII.Shared.DataModels;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
