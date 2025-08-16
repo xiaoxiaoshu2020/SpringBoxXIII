@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using SpringBoxXIII.Client.Services;
+using SpringBoxXIII.Shared.DataModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace SpringBoxXIII.Client.ViewModels
 {
-    public partial class LoginViewModel : INotifyPropertyChanged
+    public partial class LoginViewModel(IApiService apiService) : INotifyPropertyChanged
     {
+        private readonly IApiService _apiService = apiService;
+
         private string? _userName;
         private string? _password;
         public string? UserName
@@ -38,20 +42,10 @@ namespace SpringBoxXIII.Client.ViewModels
             }
         }
         [RelayCommand]
-        public void Login()
+        public async Task Login()
         {
-            // Implement login logic here
-            // For example, validate credentials and navigate to another page
-            if (UserName == "admin" && Password == "password")
-            {
-                // Navigate to main page or show success message
-                Shell.Current.GoToAsync("//MainPage");
-            }
-            else
-            {
-                // Show error message
-                Application.Current?.MainPage?.DisplayAlert("Login Failed", "Invalid username or password.", "OK");
-            }
+            string result = await _apiService.PostAsync("/api/Login", new LoginRequest { UserName = UserName, Password = Password });
+            await Shell.Current.DisplayAlert("登录结果", result, "OK");
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
