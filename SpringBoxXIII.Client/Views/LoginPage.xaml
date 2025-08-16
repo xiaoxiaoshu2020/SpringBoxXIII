@@ -11,11 +11,14 @@
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
             <Entry
-                Placeholder="用户名" />
+                Placeholder="用户名"
+                Text="{Binding UserName}" />
             <Entry
-                Placeholder="密码" />
+                Placeholder="密码"
+                Text="{Binding Password}" />
             <Button
                 Text="登录"
+                Command="{Binding LoginCommand}"
                 HorizontalOptions="Fill" />
         </VerticalStackLayout>
     </ScrollView>
