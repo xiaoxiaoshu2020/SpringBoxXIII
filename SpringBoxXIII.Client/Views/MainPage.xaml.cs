@@ -28,10 +28,6 @@ namespace SpringBoxXIII.Client.Views
                     });
                 }
             });
-            WeakReferenceMessenger.Default.Register<TestServerMessage>(this, async (r, m) =>
-            {
-                await Shell.Current.DisplayAlert("服务器返回", m.Message ?? "无内容", "确认");
-            });
         }
 
         protected override void OnDisappearing()
@@ -39,7 +35,6 @@ namespace SpringBoxXIII.Client.Views
             base.OnDisappearing();
             // 取消注册消息接收器
             WeakReferenceMessenger.Default.Unregister<StartAnimationMessage>(this);
-            WeakReferenceMessenger.Default.Unregister<TestServerMessage>(this);
         }
     }
 }
