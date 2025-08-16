@@ -12,34 +12,32 @@ namespace SpringBoxXIII.Api.Controllers
     [ApiController]
     public class HelloController : ControllerBase
     {
-        private string _connectionString = "Server=(local);Database=UserManagement;Trusted_Connection=True;TrustServerCertificate=True;";
+        private readonly string _connectionString = "Server=(local);Database=UserManagement;Trusted_Connection=True;TrustServerCertificate=True;";
 
         [HttpGet]
         public IActionResult Get()
         {
             try
             {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-                    string sql = "SELECT UserId, UserName, Count FROM Users";
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+                string sql = "SELECT UserId, UserName, Count FROM Users";
 
-                    var results = new List<object>();
-                    using (var command = new SqlCommand(sql, connection))
-                    using (var reader = command.ExecuteReader())
+                var results = new List<object>();
+                using (var command = new SqlCommand(sql, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        results.Add(new
                         {
-                            results.Add(new
-                            {
-                                Id = reader.GetValue(reader.GetOrdinal("UserId")),
-                                Name = reader.GetString(reader.GetOrdinal("UserName")),
-                                Count = reader.GetInt32(reader.GetOrdinal("Count"))
-                            });
-                        }
+                            Id = reader.GetValue(reader.GetOrdinal("UserId")),
+                            Name = reader.GetString(reader.GetOrdinal("UserName")),
+                            Count = reader.GetInt32(reader.GetOrdinal("Count"))
+                        });
                     }
-                    return Ok(results);
                 }
+                return Ok(results);
 
             }
             catch (SqlException ex)
