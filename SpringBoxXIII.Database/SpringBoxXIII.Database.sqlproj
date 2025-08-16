@@ -60,5 +60,6 @@
   <ItemGroup>
     <Build Include="Users.sql" />
     <Build Include="spAddUser.sql" />
+    <Build Include="spValidateUser.sql" />
   </ItemGroup>
 </Project>
